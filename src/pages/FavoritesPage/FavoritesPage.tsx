@@ -1,25 +1,20 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../store';
-import { removeFromFavorites } from '../../store/slices/favoriteSlice';
+import { useDispatch } from 'react-redux';
+import { addToFavorites } from '../../store/slices/favoriteSlice';
 
-const FavoritesPage: React.FC = () => {
-  const favoriteItems = useSelector((state: RootState) => state.favorites.items);
+
+const FreelancerCard = ({ freelancer }: { freelancer: any }) => {
   const dispatch = useDispatch();
+
+  const handleAddToFavorites = () => {
+    dispatch(addToFavorites(freelancer.name));
+  };
 
   return (
     <div>
-      <h2>Favorites Page</h2>
-      <ul>
-        {favoriteItems.map((item: string, index: number) => (
-          <li key={index}>
-            {item}
-            <button onClick={() => dispatch(removeFromFavorites(item))}>Remove</button>
-          </li>
-        ))}
-      </ul>
+      <h3>{freelancer.name}</h3>
+      <button onClick={handleAddToFavorites}>Добавить в избранное</button>
     </div>
   );
 };
 
-export default FavoritesPage; 
+export default FreelancerCard;
